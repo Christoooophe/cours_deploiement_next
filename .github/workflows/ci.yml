@@ -24,4 +24,4 @@ jobs:
 
       - name: docker up
         #pas besoin de --build car il créé de zéro
-        run: docker compose up
+        run: docker compose up -d
