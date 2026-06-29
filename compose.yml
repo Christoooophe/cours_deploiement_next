@@ -1,6 +1,4 @@
 services:
-  image_test:
-    build: ./
 
   node:
     container_name: node
