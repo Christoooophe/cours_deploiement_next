@@ -34,3 +34,7 @@ jobs:
 
       - name: build app
         run: docker compose exec -T -w /front/front node npm run build
+
+      - name: stop docker
+        if: always()
+        run: docker compose down
