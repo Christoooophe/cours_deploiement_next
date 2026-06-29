@@ -8,6 +8,8 @@ RUN npm ci
 
 FROM node:26-alpine3.24 AS builder
 
+WORKDIR /front
+
 COPY --from=deps /front/node_modules ./node_modules
 
 COPY front/ .
@@ -28,9 +30,9 @@ COPY front/package.json front/package-lock.json ./
 
 RUN npm ci --omit=dev
 
-COPY --from=builder front/.next ./.next
+COPY --from=builder /front/.next ./.next
 
-COPY --from=builder front/public ./public
+COPY --from=builder /front/public ./public
 
 EXPOSE 3000
 
