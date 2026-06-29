@@ -25,3 +25,7 @@ jobs:
       - name: docker up
         #pas besoin de --build car il créé de zéro
         run: docker compose up -d
+
+      - name: install dependencies
+        run: docker compose exec -T -w /front node npm ci
+
