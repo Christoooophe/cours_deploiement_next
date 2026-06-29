@@ -1,4 +1,5 @@
 name: CD
+
 on:
   push:
     branches:
@@ -8,27 +9,32 @@ jobs:
   deployed:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: install checkout
-        uses: actions/checkout@v7
+    defaults:
+      run:
+        working-directory: front
 
-      - name: install node
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node
         uses: actions/setup-node@v4
         with:
-          node-version: 26
-          cache: 'npm'
+          node-version: 22
+          cache: npm
+          cache-dependency-path: front/package-lock.json
 
-      - name: install dependencies
-        run: npm install
+      - name: Install dependencies
+        run: npm ci
 
-      - name: build app
-        run: npm build
+      - name: Build app
+        run: npm run build
 
-      - name: Upload app to https
-        uses: appleboy/scp-action@v0.1.7
+      - name: Upload app via SCP
+        uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.host }}
           username: ${{ secrets.username }}
           key: ${{ secrets.key }}
-          source: "out"
-          target: "var/www/httpdocs/"
+          source: "front/out"
+          target: "/var/www/httpdocs/"
