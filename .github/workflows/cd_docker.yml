@@ -15,7 +15,7 @@ permissions:
   actions: read
 
 env:
-  IMAGE-NAME: ghcr.io/${{ github.repository }}
+  IMAGE-NAME: ghcr.io/christoooophe/cours_deploiement_next
 
 jobs:
   build-and-push:
