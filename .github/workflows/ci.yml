@@ -59,11 +59,20 @@ jobs:
           ignore-unchanged: true
           only-unfixed: true
 
-      - name: Trivy
-        uses: aquasecurity/trivy-action@master
+#      - name: Trivy
+#        uses: aquasecurity/trivy-action@master
+#        with:
+#          image-ref: node:26-alpine3.24
+#          format: 'table'
+#          severity: 'CRITICAL,HIGH,MEDIUM'
+#          exit-code: 0
+#          ignore-unfixed: 'false'
+
+  renovate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run Renovate
+        uses: renovatebot/github-action@v46.1.17
         with:
-          image-ref: postgres:18-alpine3.24
-          format: 'table'
-          severity: 'CRITICAL,HIGH,MEDIUM'
-          exit-code: 0
-          ignore-unfixed: 'false'
+          token: ${{ secrets.RENOVATE_TOKEN }}
