@@ -1,15 +1,12 @@
 services:
 
-  node:
-    container_name: node
-    image: node:26-alpine3.24
-    working_dir: /front
-    volumes:
-      - ./:/front
-    # Lance un terminal pour garder le conteneur ouvert
-    tty: true
+  app:
+    build: .
+    image: ghcr.io/christoooophe/cours_deploiement_next:cache
     networks:
       - deploy-app
+    ports:
+      - "3000:3000"
 
   postgres:
     container_name: postgres
@@ -22,6 +19,8 @@ services:
       - deploy_data:/var/lib/postgresql/18/docker
     networks:
       - deploy-app
+    ports:
+      - "5432:5432"
 
   redis:
     container_name: redis
@@ -32,6 +31,8 @@ services:
       - REDIS_ARGS=${REDIS_ARG}
     networks:
       - deploy-app
+    ports:
+      - "6379:6379"
 
 networks:
   deploy-app:
