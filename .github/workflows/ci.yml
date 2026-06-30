@@ -9,6 +9,10 @@ on:
       - prod
       - main
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   build_docker:
     runs-on: ubuntu-latest
@@ -75,5 +79,7 @@ jobs:
     steps:
       - name: Run Renovate
         uses: renovatebot/github-action@v46.1.17
+        env:
+          RENOVATE_REPOSITORIES: ${{ github.repository }}
         with:
           token: ${{ secrets.RENOVATE_TOKEN }}
