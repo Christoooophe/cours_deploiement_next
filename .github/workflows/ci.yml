@@ -38,3 +38,17 @@ jobs:
       - name: stop docker
         if: always()
         run: docker compose down
+
+  check_image_docker:
+    needs: build_docker
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Docker scout
+        uses: docker/scout-action@v1
+        with:
+          command: cves, recommandation
+          image: postgres:18-alpine3.24
+          to: postgres:latest
+          ignore-unchanged: true
+          only-unfixed: true
