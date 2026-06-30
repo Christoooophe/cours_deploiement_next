@@ -14,7 +14,7 @@ COPY --from=deps /front/node_modules ./node_modules
 
 COPY front/ .
 
-ENV MODE_ENV=production
+ENV NODE_ENV=production
 
 RUN npm run build
 
@@ -22,7 +22,7 @@ FROM node:26-alpine3.24 AS runner
 
 WORKDIR /front
 
-ENV MODE_ENV=production
+ENV NODE_ENV=production
 
 ENV PORT=3000
 
