@@ -69,6 +69,7 @@ jobs:
 #          ignore-unfixed: 'false'
 
   renovate:
+    needs: build_docker
     runs-on: ubuntu-latest
 
     steps:
