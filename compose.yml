@@ -25,7 +25,7 @@ services:
 
   redis:
     container_name: redis
-    image: redis:8.8-alpine3.23
+    image: redis:8.10-alpine3.23
     volumes:
       - deploy_redis_data:/data
     environment:
